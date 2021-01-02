@@ -1,0 +1,4 @@
+<app-reactive-movie-ui *ngIf="apikey !== 'apikey' else noApiKey"></app-reactive-movie-ui>
+<ng-template #noApiKey>
+    <h1>Please update your apikey in environment.ts</h1>
+</ng-template>

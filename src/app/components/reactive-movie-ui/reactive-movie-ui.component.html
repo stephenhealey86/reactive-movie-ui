@@ -1,0 +1,47 @@
+<div class="container">
+  <input type="text" class="search" placeholder="Search" [formControl]="search">
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <div>
+            <span>No.</span>
+            <svg *ngIf="numberOrder" (click)="numberOrder = false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#000" d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+            <svg *ngIf="numberOrder === false" (click)="numberOrder = true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#000" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
+          </div>
+        </th>
+        <th>
+          <input type="text" placeholder="Title" [formControl]="title">
+        </th>
+        <th>
+          <div>
+            <span>Released</span>
+            <svg *ngIf="releasedOrder === undefined" (click)="releasedOrder = true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#CCC" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z"></path></svg>
+            <svg *ngIf="releasedOrder" (click)="releasedOrder = false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#000" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>
+            <svg *ngIf="releasedOrder === false" (click)="releasedOrder = undefined" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#000" d="M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"></path></svg>
+          </div>
+        </th>
+        <th>Director</th>
+        <th>Actors</th>
+        <th>Plot</th>
+        <th>Poster</th>
+        <th>Ratings</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="filteredMovies$ | async as movies">
+      <tr *ngFor="let movie of (numberOrder ? movies : movies.reverse()); let i = index; let c = count;" [style.background]="i % 2 === 0 ? '#FFF' : '#EEE'">
+        <td>{{numberOrder ? i + 1 : c - i}}</td>
+        <td>{{movie.Title}}</td>
+        <td class="released">{{movie.Released}}</td>
+        <td>{{movie.Director}}</td>
+        <td>{{movie.Actors}}</td>
+        <td class="plot">{{movie.Plot}}</td>
+        <td><img [src]="movie.Poster" [alt]="movie.Title"></td>
+        <td>
+          <p *ngFor="let rating of movie.Ratings">{{rating.Source}} - {{rating.Value}}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
